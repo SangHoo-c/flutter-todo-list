@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/widgets/task_list.dart';
 import 'package:todo_list/widgets/task_tile.dart';
+import 'package:todo_list/screens/add_task_screen.dart';
+import 'package:todo_list/modules/task.dart';
 
-class TasksScreen extends StatelessWidget {
-  Widget buildButtomSheet;
+class TasksScreen extends StatefulWidget {
+  @override
+  State<TasksScreen> createState() => _TasksScreenState();
+}
+
+class _TasksScreenState extends State<TasksScreen> {
+  List<Task> tasks = [
+    Task(name: 'buy milk'),
+    Task(name: 'buy eggs'),
+    Task(name: 'do stuff'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +26,13 @@ class TasksScreen extends StatelessWidget {
           showModalBottomSheet(
             context: context,
             // builder 는 Function 을 인자로 필요로 한다. 익명함수 선언.
-            builder: (BuildContext context) => Container(),
+            builder: (context) => AddTaskScreen((newTaskTitle) {
+              // print(newTaskTitle);
+              setState(() {
+                tasks.add(Task(name: newTaskTitle));
+              });
+              Navigator.pop(context);
+            }),
           );
         },
         child: Icon(Icons.add),
@@ -54,7 +72,7 @@ class TasksScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '12 Tasks',
+                  '${tasks.length} Tasks',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18.0,
@@ -73,7 +91,7 @@ class TasksScreen extends StatelessWidget {
                   topRight: Radius.circular(20.0),
                 ),
               ),
-              child: TasksList(),
+              child: TasksList(tasks),
             ),
           ),
         ],
