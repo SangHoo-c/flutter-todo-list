@@ -10,21 +10,15 @@ class TasksScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.lightBlueAccent,
       floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
         backgroundColor: Colors.lightBlueAccent,
         onPressed: () {
           showModalBottomSheet(
             context: context,
             // builder 는 Function 을 인자로 필요로 한다. 익명함수 선언.
-            builder: (context) => AddTaskScreen((newTaskTitle) {
-              // print(newTaskTitle);
-              // setState(() {
-              //   tasks.add(Task(name: newTaskTitle));
-              // });
-              Navigator.pop(context);
-            }),
+            builder: (context) => AddTaskScreen(),
           );
         },
-        child: Icon(Icons.add),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

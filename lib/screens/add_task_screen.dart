@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_list/modules/task.dart';
+import 'package:todo_list/modules/task_data.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  final Function? addTaskCallback;
-
-  AddTaskScreen(this.addTaskCallback);
-
   @override
   Widget build(BuildContext context) {
     String newTaskTitle = 'hello';
@@ -41,7 +40,12 @@ class AddTaskScreen extends StatelessWidget {
               style:
                   TextButton.styleFrom(backgroundColor: Colors.lightBlueAccent),
               onPressed: () {
-                addTaskCallback!(newTaskTitle);
+                // final task = Task(name: newTaskTitle);
+                // Provider.of<TaskData>(context).tasks.add(task);
+                // notifyListener 를 호출해야한다. 새로운 Method 를 만들어준다.
+                Provider.of<TaskData>(context, listen: false)
+                    .addTask(newTaskTitle);
+                Navigator.pop(context);
               },
               child: Text(
                 'Add',

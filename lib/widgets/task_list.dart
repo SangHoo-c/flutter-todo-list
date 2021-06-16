@@ -15,14 +15,37 @@ class TasksList extends StatelessWidget {
       builder: (context, taskData, child) {
         return ListView.builder(
           itemBuilder: (context, index) {
-            return TaskTile(
-              isChecked: taskData.tasks[index].isDone,
-              taskTitle: taskData.tasks[index].name,
-              checkBoxCallback: (bool? checkBoxState) {
-                // setState(() {
-                //   Provider.of<TaskData>(context).tasks[index].toggleDone();
-                // });
+            final task = taskData.tasks[index];
+            return Dismissible(
+              key: Key(Provider.of<TaskData>(context).tasks[index].name),
+              background: Container(
+                padding: EdgeInsets.all(10.0),
+                color: Colors.red,
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    "DELETE",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              onDismissed: (direction) {
+                taskData.deleteTask(task);
+                Scaffold.of(context)
+                    .showSnackBar(SnackBar(content: Text("Item deleted")));
               },
+              child: TaskTile(
+                isChecked: task.isDone,
+                taskTitle: task.name,
+                checkBoxCallback: (bool? checkBoxState) {
+                  taskData.updateTask(task);
+                },
+                longPressCallback: () {
+                  taskData.deleteTask(task);
+                },
+              ),
             );
           },
           itemCount: taskData.taskCount,
