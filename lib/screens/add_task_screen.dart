@@ -10,7 +10,7 @@ class AddTaskScreen extends StatelessWidget {
     return Container(
       color: Color(0xff757575),
       child: Container(
-        padding: EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(40.0),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -20,25 +20,33 @@ class AddTaskScreen extends StatelessWidget {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(
-              'Add Task',
+              '기도제목 추가',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 30.0,
-                color: Colors.lightBlueAccent,
+                color: Colors.grey,
               ),
             ),
-            TextField(
-              autofocus: true,
-              textAlign: TextAlign.center,
-              onChanged: (newText) {
-                newTaskTitle = newText;
-              },
+            Container(
+              width: 100.0,
+              child: TextField(
+                keyboardType: TextInputType.multiline,
+                maxLines: 5,
+                decoration: new InputDecoration(
+                  border: InputBorder.none,
+                ),
+                autofocus: true,
+                textAlign: TextAlign.center,
+                onChanged: (newText) {
+                  newTaskTitle = newText;
+                },
+              ),
             ),
             TextButton(
-              style:
-                  TextButton.styleFrom(backgroundColor: Colors.lightBlueAccent),
+              style: TextButton.styleFrom(backgroundColor: Colors.grey),
               onPressed: () {
                 // final task = Task(name: newTaskTitle);
                 // Provider.of<TaskData>(context).tasks.add(task);

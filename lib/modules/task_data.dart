@@ -1,13 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:todo_list/modules/task.dart';
 import 'dart:collection';
+import 'package:date_format/date_format.dart';
 
 class TaskData extends ChangeNotifier {
   // task 를 private 하게 만들어서 보호한다.
   List<Task> _tasks = [
-    Task(name: 'buy milk'),
-    Task(name: 'buy eggs'),
-    Task(name: 'do stuff'),
+    Task(sentence: '기도노트가 잘 만들어질 수 있도록 지혜주세요.', date: '2021.03.01'),
+    Task(
+        sentence: '열림교회 청년부들이 예수님의 발자취를 따라갈 수 있도록 인도해주세요.', date: '2021.06.01'),
   ];
 
   // 외부에서 tasks 에 대한 호출이 필요한 경우 , getter 를 사용해서 반환한다.
@@ -21,14 +22,26 @@ class TaskData extends ChangeNotifier {
   }
 
   void addTask(String newTaskTitle) {
-    final task = Task(name: newTaskTitle);
+    DateTime currentDateTime = DateTime.now();
+    String currentDateTimeString =
+        formatDate(currentDateTime, [yyyy, '.', mm, '.', dd]);
+    final task = Task(sentence: newTaskTitle, date: currentDateTimeString);
     _tasks.add(task);
     notifyListeners();
   }
 
-  void updateTask(Task task) {
+  void updateToggle(Task task) {
     task.toggleDone();
     notifyListeners(); // update Widget
+  }
+
+  void updatePray(String newTaskTitle) {
+    // DateTime currentDateTime = DateTime.now();
+    // String currentDateTimeString =
+    //     formatDate(currentDateTime, [yyyy, '.', mm, '.', dd]);
+    // final task = Task(sentence: newTaskTitle, date: currentDateTimeString);
+    // _tasks.add(task);
+    // notifyListeners();
   }
 
   void deleteTask(Task task) {
