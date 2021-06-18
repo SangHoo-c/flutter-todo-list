@@ -14,7 +14,7 @@ class TasksList extends StatelessWidget {
     // Cosumer widger 으로
     return Consumer<TaskData>(
       builder: (context, taskData, child) {
-        // 더 좋은(overhead 가 없는) scroll view 가 없는지 찾아보기,
+        // 더 좋은(overhead 가 없는) scroll view 가 있는지 찾아보기,
         return SingleChildScrollView(
           physics: ScrollPhysics(),
           child: ListView.builder(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/modules/task_data.dart';
-import 'screens/tasks_screen.dart';
+import 'screens/home_page.dart';
 import 'package:provider/provider.dart';
 import 'modules/task_data.dart';
 
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => TaskData(),
       child: MaterialApp(
-        home: TasksScreen(),
+        home: MyHomePage(),
       ),
     );
   }
